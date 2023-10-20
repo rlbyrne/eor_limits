@@ -1,5 +1,5 @@
-telescope: MWA phase I
-author: Rahimi
+telescope: MWA
+author: Rahimi+
 year: 2021
 doi: 10.1093/mnras/stab2918
 type: line
@@ -31,3 +31,4 @@ k_upper: [[0.141558, 0.212337, 0.283116, 0.353895, 0.424674, 0.495453, 0.566232,
            0.637012, 0.707791, 0.778570, 0.849349, 0.920128, 0.990907, 1.061686]]
 redshift: [[6.5], [6.8], [7.1]]
 linewidth: 4
+marker: ">" # triangle_right

@@ -83,7 +83,7 @@ def read_data_yaml(paper_name, theory=False):
             paper_dict["delta_squared"] = [
                 float(val) for val in paper_dict["delta_squared"]
             ]
-        except ValueError:
+        except (ValueError):
             val_list = []
             for val in paper_dict["delta_squared"]:
                 if "**" in val:
@@ -98,7 +98,7 @@ def read_data_yaml(paper_name, theory=False):
         for ind, elem in enumerate(paper_dict["delta_squared"]):
             try:
                 paper_dict["delta_squared"][ind] = [float(val) for val in elem]
-            except ValueError:
+            except (ValueError):
                 val_list = []
                 for val in paper_dict["delta_squared"][ind]:
                     if "**" in val:
@@ -432,9 +432,9 @@ def make_plot(
                             zorder = 0
                             alpha = 1
                     else:
-                        color_use = "grey"
+                        color_use = "lightgrey"
                         zorder = 0
-                        alpha = 0.5
+                        alpha = 1
                     for index in points_use:
                         k_edges = [paper["k_lower"][index], paper["k_upper"][index]]
                         delta_edges = [
@@ -513,13 +513,13 @@ def make_plot(
                 else:
                     color_val = scalar_map.to_rgba(redshift)
                     # make black outline by plotting thicker black line first
-                    plt.plot(
-                        k_edges,
-                        delta_edges,
-                        c="black",
-                        linewidth=paper["linewidth"] + 2,
-                        zorder=2,
-                    )
+                    #plt.plot(
+                    #    k_edges,
+                    #    delta_edges,
+                    #    c="black",
+                    #    linewidth=paper["linewidth"] + 2,
+                    #    zorder=2,
+                    #)
 
                     (line,) = plt.plot(
                         k_edges,
@@ -542,7 +542,7 @@ def make_plot(
                     else:
                         color_use = "grey"
                         zorder = 0
-                        alpha = 0.5
+                        alpha = 1
                     plt.fill_between(
                         k_edges,
                         delta_edges,
@@ -568,7 +568,7 @@ def make_plot(
         theory_paper_list = [theory_paper_list[p] for p in ordering]
 
         for paper in theory_paper_list:
-            label_start = " $\\bf{Theory:} \\rm{ "
+            label_start = " $\\it{Theory:} \\rm{ "
             label_end = "}$"
             label = (
                 label_start
@@ -617,8 +617,8 @@ def make_plot(
     font_inch = fontsize * point_size
 
     plt.rcParams.update({"font.size": fontsize})
-    plt.xlabel("k ($h Mpc^{-1}$)", fontsize=fontsize)
-    plt.ylabel("$\Delta^2$ ($mK^2$)", fontsize=fontsize)  # noqa
+    plt.xlabel("Angular Scale  k ($h Mpc^{-1}$)", fontsize=fontsize)
+    plt.ylabel("Power Spectrum Amplitude  $\Delta^2$ ($mK^2$)", fontsize=fontsize)  # noqa
     plt.yscale("log")
     plt.xscale("log")
     plt.ylim(*delta_squared_range)
@@ -665,9 +665,9 @@ def make_plot(
         frameon=False,
     )
 
-    for ind in range(len(leg.legendHandles)):
-        if ind not in theory_line_inds:
-            leg.legendHandles[ind].set_color("gray")
+    #for ind in range(len(leg.legendHandles)):
+    #    if ind not in theory_line_inds:
+    #        leg.legendHandles[ind].set_color("gray")
     plt.subplots_adjust(bottom=plot_bottom)
     fig.tight_layout()
     plt.savefig(plot_filename)

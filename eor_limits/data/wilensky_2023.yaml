@@ -1,0 +1,11 @@
+telescope: MWA
+author: Wilensky+
+year: 2023
+doi: arXiv:2310.03851v1
+type: point
+delta_squared: [1.61e4]
+k: [0.258]
+k_lower: [0.258]
+k_upper: [0.258]
+redshift: [7.1]
+marker: X
