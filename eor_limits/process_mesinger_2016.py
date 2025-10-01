@@ -100,7 +100,7 @@ def get_mesinger_2016_line(model="faint", nf=None, redshift=None, linewidth=1.0)
             redshift_diffs = np.abs(np.asarray(redshifts) - redshift)
             closest_ind = np.atleast_1d(np.argmin(redshift_diffs))
 
-        data_array = np.loadtxt(np.asarray(model_files)[closest_ind][0], dtype=np.float)
+        data_array = np.loadtxt(np.asarray(model_files)[closest_ind][0], dtype=float)
         # first column is k
         paper_dict["k"] = data_array[:, 0].tolist()
         # second is power
