@@ -83,7 +83,7 @@ def read_data_yaml(paper_name, theory=False):
             paper_dict["delta_squared"] = [
                 float(val) for val in paper_dict["delta_squared"]
             ]
-        except (ValueError):
+        except ValueError:
             val_list = []
             for val in paper_dict["delta_squared"]:
                 if "**" in val:
@@ -98,7 +98,7 @@ def read_data_yaml(paper_name, theory=False):
         for ind, elem in enumerate(paper_dict["delta_squared"]):
             try:
                 paper_dict["delta_squared"][ind] = [float(val) for val in elem]
-            except (ValueError):
+            except ValueError:
                 val_list = []
                 for val in paper_dict["delta_squared"][ind]:
                     if "**" in val:
@@ -513,13 +513,13 @@ def make_plot(
                 else:
                     color_val = scalar_map.to_rgba(redshift)
                     # make black outline by plotting thicker black line first
-                    #plt.plot(
+                    # plt.plot(
                     #    k_edges,
                     #    delta_edges,
                     #    c="black",
                     #    linewidth=paper["linewidth"] + 2,
                     #    zorder=2,
-                    #)
+                    # )
 
                     (line,) = plt.plot(
                         k_edges,
@@ -618,11 +618,14 @@ def make_plot(
 
     plt.rcParams.update({"font.size": fontsize})
     plt.xlabel("Angular Scale  k ($h Mpc^{-1}$)", fontsize=fontsize)
-    plt.ylabel("Power Spectrum Amplitude  $\Delta^2$ ($mK^2$)", fontsize=fontsize)  # noqa
+    plt.ylabel(
+        "Power Spectrum Amplitude  $\Delta^2$ ($mK^2$)", fontsize=fontsize
+    )  # noqa
     plt.yscale("log")
     plt.xscale("log")
     plt.ylim(*delta_squared_range)
 
+    print(paper_ks)
     if k_range is None:
         k_range = [np.min(paper_ks), np.max(paper_ks)]
         min_factor = 10 ** np.ceil(np.log10(k_range[0]) * -1)
@@ -634,7 +637,9 @@ def make_plot(
     plt.xlim(*k_range)
 
     plt.tick_params(labelsize=fontsize)
-    cb = plt.colorbar(scalar_map, fraction=0.1, pad=0.08, label="Redshift")
+    cb = plt.colorbar(
+        scalar_map, fraction=0.1, pad=0.08, label="Redshift", ax=plt.gca()
+    )
     cb.ax.yaxis.set_label_position("left")
     cb.ax.yaxis.set_ticks_position("left")
     cb.set_label(label="Redshift", fontsize=fontsize)
@@ -665,7 +670,7 @@ def make_plot(
         frameon=False,
     )
 
-    #for ind in range(len(leg.legendHandles)):
+    # for ind in range(len(leg.legendHandles)):
     #    if ind not in theory_line_inds:
     #        leg.legendHandles[ind].set_color("gray")
     plt.subplots_adjust(bottom=plot_bottom)
